@@ -25,7 +25,7 @@ export function RepositoryList () {
             })}
         </ul>
 
-        <h2>mais um teste</h2>
+        
     </section>
   )
 }
