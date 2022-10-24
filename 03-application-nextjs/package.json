@@ -2,6 +2,7 @@
   "name": "03-application-nextjs",
   "version": "0.1.0",
   "private": true,
+  "homepage": "rocketseat/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
