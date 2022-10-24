@@ -8,6 +8,13 @@
 # testing
 /coverage
 
+# next.js
+/.next/
+/out/
+
+# static folder for DigitalOcean App Platform
+_static
+
 # production
 /build
 
