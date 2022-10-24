@@ -7,13 +7,13 @@ import styles from "./styles.module.scss"
 import Link from "next/link"
 
 type Post = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  updatedAt: string;
+  slug: string
+  title: string
+  excerpt: string
+  updatedAt: string
 }
 interface PostsProps {
-  posts: Post[];
+  posts: Post[]
 }
 
 export default function Posts({ posts }: PostsProps) {
@@ -25,9 +25,8 @@ export default function Posts({ posts }: PostsProps) {
 
       <main className={styles.container}>
         <div className={styles.posts}>
-
-          {posts.map(post => (
-            <Link href={`/posts/${post.slug}`}>
+          {posts.map((post) => (
+            <Link href={`/posts/${post.slug}`} key={post.slug}>
               <a key={post.slug}>
                 <time>{post.updatedAt}</time>
                 <strong>{post.title} </strong>
@@ -35,7 +34,6 @@ export default function Posts({ posts }: PostsProps) {
               </a>
             </Link>
           ))}
-
         </div>
       </main>
     </>
@@ -48,21 +46,27 @@ export const getStaticProps: GetStaticProps = async () => {
   const response = await prismic.getByType("post", {
     lang: "pt-BR",
   })
-  
-  const posts = response.results.map(post => {
+
+  const posts = response.results.map((post) => {
     return {
       slug: post.uid,
       title: RichText.asText(post.data.title),
-      excerpt: post.data.content.find((content: { type: any }) => content.type === 'paragraph')?.text ?? '',
-      updatedAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'long',
-        year: "numeric"
-      })
+      excerpt:
+        post.data.content.find(
+          (content: { type: any }) => content.type === "paragraph"
+        )?.text ?? "",
+      updatedAt: new Date(post.last_publication_date).toLocaleDateString(
+        "pt-BR",
+        {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        }
+      ),
     }
   })
 
   return {
-    props: {posts},
+    props: { posts },
   }
 }
